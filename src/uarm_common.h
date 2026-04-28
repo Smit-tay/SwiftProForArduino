@@ -4,6 +4,11 @@
 #include "grbl.h"
 
 #include <stdio.h>
+// grbl's nuts_bolts.h defines min/max/bit; Arduino.h redefines them identically.
+// Undefine first so Arduino.h wins without a redefinition warning.
+#undef min
+#undef max
+#undef bit
 #include <Arduino.h>
 
 #include "uarm_debug.h"

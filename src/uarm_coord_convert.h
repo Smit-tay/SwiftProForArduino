@@ -3,7 +3,9 @@
 
 #include "uarm_common.h"
 
-#define RAD_TO_DEG (57.29578)// 180/PI
+#ifndef RAD_TO_DEG
+#define RAD_TO_DEG (57.29578)
+#endif
 
 
 
