@@ -24,6 +24,7 @@ void end_effector_deinit(void);
 float end_effector_get_angle(void);
 void end_effector_check_limit(void);
 void end_effect_adjust_angle(void);
+void end_effector_get_origin(void);
 
 
 

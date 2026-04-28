@@ -41,21 +41,12 @@ src/motion_control.c:38:11: note: declared here
            ^~~~~~~
 Compiling .pio/build/megaatmega2560/src/protocol.c.o
 Compiling .pio/build/megaatmega2560/src/report.c.o
-src/print.c: In function 'uart_printf':
-src/print.c:212:2: warning: implicit declaration of function 'vsprintf' [-Wimplicit-function-declaration]
-  vsprintf(buf,str,ptr);
-  ^~~~~~~~
 Compiling .pio/build/megaatmega2560/src/serial.c.o
 Compiling .pio/build/megaatmega2560/src/settings.c.o
 Compiling .pio/build/megaatmega2560/src/spindle_control.c.o
 Compiling .pio/build/megaatmega2560/src/step_lowlevel.c.o
 Compiling .pio/build/megaatmega2560/src/stepper.c.o
 Compiling .pio/build/megaatmega2560/src/system.c.o
-src/step_lowlevel.c: In function 'set_steps':
-src/step_lowlevel.c:80:4: warning: implicit declaration of function 'delay_us'; did you mean '_delay_us'? [-Wimplicit-function-declaration]
-    delay_us(100);
-    ^~~~~~~~
-    _delay_us
 Compiling .pio/build/megaatmega2560/src/uarm_angle.c.o
 Compiling .pio/build/megaatmega2560/src/uarm_coord_convert.c.o
 Compiling .pio/build/megaatmega2560/src/uarm_iic.c.o
@@ -88,7 +79,19 @@ Compiling .pio/build/megaatmega2560/src/uarm_protocol.c.o
 Compiling .pio/build/megaatmega2560/src/uarm_swift.c.o
 Compiling .pio/build/megaatmega2560/src/uarm_timer.c.o
 Archiving .pio/build/megaatmega2560/libFrameworkArduinoVariant.a
+src/uarm_peripheral.c: In function 'pump_tick':
+src/uarm_peripheral.c:729:2: warning: enumeration value 'PUMP_STATE_COUNT' not handled in switch [-Wswitch]
+  switch (pump_state)
+  ^~~~~~
 Indexing .pio/build/megaatmega2560/libFrameworkArduinoVariant.a
+At top level:
+src/uarm_peripheral.c:662:12: warning: 'adc_read_value' defined but not used [-Wunused-function]
+ static int adc_read_value(uint8_t pin){
+            ^~~~~~~~~~~~~~
+src/uarm_peripheral.c:642:13: warning: '_sort' defined but not used [-Wunused-function]
+ static void _sort(unsigned int array[], unsigned int len)
+             ^~~~~
+Compiling .pio/build/megaatmega2560/FrameworkArduino/CDC.cpp.o
 src/uarm_protocol.c: In function 'uarm_cmd_g2004':
 src/uarm_protocol.c:240:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "P%d", &delay_ms ) < 1 ){
@@ -109,10 +112,6 @@ src/uarm_protocol.c: In function 'uarm_cmd_g2205':
 src/uarm_protocol.c:345:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "S%[0-9-+.]R%[0-9-+.]H%[0-9-+.]F%[0-9-+.]", s_str, r_str, h_str, f_str) < 4 ){
       ^~~
-src/uarm_peripheral.c: In function 'setE2PROMData':
-src/uarm_peripheral.c:520:4: warning: implicit declaration of function 'eeprom_iic_writebuf' [-Wimplicit-function-declaration]
-    eeprom_iic_writebuf(FData.data, deviceAddr, addr, i);// write data
-    ^~~~~~~~~~~~~~~~~~~
 src/uarm_protocol.c: In function 'uarm_cmd_g2206':
 src/uarm_protocol.c:384:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "B%[0-9-+.]L%[0-9-+.]R%[0-9-+.]F%[0-9-+.]", angle_b_str, angle_l_str, angle_r_str, speed_str ) < 4 ){
@@ -125,6 +124,7 @@ src/uarm_protocol.c: In function 'uarm_cmd_m2120':
 src/uarm_protocol.c:539:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "V%s", time_str ) < 1 ){
       ^~~
+Compiling .pio/build/megaatmega2560/FrameworkArduino/HardwareSerial.cpp.o
 src/uarm_protocol.c: In function 'uarm_cmd_m2205':
 src/uarm_protocol.c:688:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "VUB%[0-9.]", sn_num ) < 1 ){
@@ -165,11 +165,6 @@ src/uarm_protocol.c: In function 'uarm_cmd_m2221':
 src/uarm_protocol.c:846:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "B%[0-9-+.]L%[0-9-+.]R%[0-9-+.]", b_str, l_str, r_str ) < 3 ){
       ^~~
-src/uarm_peripheral.c: In function 'getE2PROMData':
-src/uarm_peripheral.c:577:4: warning: implicit declaration of function 'eeprom_iic_readbuf'; did you mean 'eeprom_put_char'? [-Wimplicit-function-declaration]
-    eeprom_iic_readbuf(FData.data, deviceAddr, addr, i);
-    ^~~~~~~~~~~~~~~~~~
-    eeprom_put_char
 src/uarm_protocol.c: In function 'uarm_cmd_m2222':
 src/uarm_protocol.c:875:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "X%[0-9-+.]Y%[0-9-+.]Z%[0-9-+.]P%d", x_str, y_str, z_str, &mode) < 4 ){
@@ -182,15 +177,6 @@ src/uarm_protocol.c: In function 'uarm_cmd_m2241':
 src/uarm_protocol.c:949:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "N%dV%d", &pin, &value) < 2 ){
       ^~~
-src/uarm_peripheral.c: In function 'pump_tick':
-src/uarm_peripheral.c:728:2: warning: enumeration value 'PUMP_STATE_COUNT' not handled in switch [-Wswitch]
-  switch (pump_state)
-  ^~~~~~
-src/uarm_protocol.c: In function 'uarm_cmd_m2400':
-src/uarm_protocol.c:995:7: warning: implicit declaration of function 'end_effector_get_origin'; did you mean 'end_effector_get_angle'? [-Wimplicit-function-declaration]
-       end_effector_get_origin();
-       ^~~~~~~~~~~~~~~~~~~~~~~
-       end_effector_get_angle
 src/uarm_protocol.c: In function 'uarm_cmd_m2411':
 src/uarm_protocol.c:1061:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "S%[0-9-+.]", offset_str) < 1 ){
@@ -199,31 +185,19 @@ src/uarm_protocol.c: In function 'uarm_cmd_m2412':
 src/uarm_protocol.c:1079:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "V%[0-9-+.]", offset_str) < 1 ){
       ^~~
+Compiling .pio/build/megaatmega2560/FrameworkArduino/HardwareSerial0.cpp.o
 src/uarm_protocol.c: In function 'uarm_cmd_m2413':
 src/uarm_protocol.c:1096:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "H%[0-9-+.]", offset_str) < 1 ){
       ^~~
-src/uarm_swift.c: In function 'uarm_swift_init':
-src/uarm_swift.c:28:2: warning: implicit declaration of function 'end_effector_get_origin'; did you mean 'end_effector_get_angle'? [-Wimplicit-function-declaration]
-  end_effector_get_origin();
-  ^~~~~~~~~~~~~~~~~~~~~~~
-  end_effector_get_angle
 src/uarm_protocol.c: In function 'uarm_cmd_p2240':
 src/uarm_protocol.c:1478:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
    DB_PRINT_STR( "sscanf %d\r\n", rtn );
       ^~~
 src/uarm_protocol.c: In function 'uarm_cmd_p2241':
 src/uarm_protocol.c:1492:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
-Compiling .pio/build/megaatmega2560/FrameworkArduino/CDC.cpp.o
    DB_PRINT_STR( "sscanf %d\r\n", rtn );
       ^~~
-At top level:
-src/uarm_peripheral.c:661:12: warning: 'adc_read_value' defined but not used [-Wunused-function]
- static int adc_read_value(uint8_t pin){
-            ^~~~~~~~~~~~~~
-src/uarm_peripheral.c:641:13: warning: '_sort' defined but not used [-Wunused-function]
- static void _sort(unsigned int array[], unsigned int len)
-             ^~~~~
 src/uarm_protocol.c: In function 'uarm_cmd_p2242':
 src/uarm_protocol.c:1507:18: warning: passing argument 1 of 'get_refer_value' from incompatible pointer type [-Wincompatible-pointer-types]
   sprintf( tail_report_str, " B%d L%d R%d\n", refer_value[2], refer_value[0], refer_value[1] );
@@ -244,13 +218,11 @@ In file included from src/uarm_common.h:15:0,
 src/uarm_angle.h:16:6: note: expected 'uint16_t * {aka unsigned int *}' but argument is of type 'uint16_t (*)[3] {aka unsigned int (*)[3]}'
  void get_angle_reg_value(uint16_t *value);
       ^~~~~~~~~~~~~~~~~~~
+Compiling .pio/build/megaatmega2560/FrameworkArduino/HardwareSerial1.cpp.o
 src/uarm_protocol.c: In function 'uarm_cmd_p2244':
 src/uarm_protocol.c:1556:1: warning: control reaches end of non-void function [-Wreturn-type]
  
  ^
-Compiling .pio/build/megaatmega2560/FrameworkArduino/HardwareSerial.cpp.o
-Compiling .pio/build/megaatmega2560/FrameworkArduino/HardwareSerial0.cpp.o
-Compiling .pio/build/megaatmega2560/FrameworkArduino/HardwareSerial1.cpp.o
 Compiling .pio/build/megaatmega2560/FrameworkArduino/HardwareSerial2.cpp.o
 Compiling .pio/build/megaatmega2560/FrameworkArduino/HardwareSerial3.cpp.o
 Compiling .pio/build/megaatmega2560/FrameworkArduino/IPAddress.cpp.o
@@ -275,25 +247,9 @@ Compiling .pio/build/megaatmega2560/FrameworkArduino/wiring_shift.c.o
 Archiving .pio/build/megaatmega2560/libFrameworkArduino.a
 Indexing .pio/build/megaatmega2560/libFrameworkArduino.a
 Linking .pio/build/megaatmega2560/firmware.elf
-src/uarm_peripheral.c:577:4: warning: type of 'eeprom_iic_readbuf' does not match original declaration [-Wlto-type-mismatch]
-    eeprom_iic_readbuf(FData.data, deviceAddr, addr, i);
-    ^
-src/uarm_iic.c:216:15: note: return value type mismatch
- unsigned char eeprom_iic_readbuf(unsigned char *buf,unsigned char device_addr,unsigned int addr,unsigned char len)
-               ^
-src/uarm_iic.c:216:15: note: type 'unsigned char' should match type 'int'
-src/uarm_iic.c:216:15: note: 'eeprom_iic_readbuf' was previously declared here
-src/uarm_peripheral.c:520:4: warning: type of 'eeprom_iic_writebuf' does not match original declaration [-Wlto-type-mismatch]
-    eeprom_iic_writebuf(FData.data, deviceAddr, addr, i);// write data
-    ^
-src/uarm_iic.c:187:15: note: return value type mismatch
- unsigned char eeprom_iic_writebuf(unsigned char *buf,unsigned char device_addr,unsigned int addr,unsigned char len)
-               ^
-src/uarm_iic.c:187:15: note: type 'unsigned char' should match type 'int'
-src/uarm_iic.c:187:15: note: 'eeprom_iic_writebuf' was previously declared here
 Checking size .pio/build/megaatmega2560/firmware.elf
 Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
 RAM:   [======    ]  62.4% (used 5112 bytes from 8192 bytes)
-Flash: [===       ]  26.4% (used 67008 bytes from 253952 bytes)
+Flash: [===       ]  26.4% (used 66974 bytes from 253952 bytes)
 Building .pio/build/megaatmega2560/firmware.hex
-========================= [SUCCESS] Took 1.49 seconds =========================
+========================= [SUCCESS] Took 1.48 seconds =========================

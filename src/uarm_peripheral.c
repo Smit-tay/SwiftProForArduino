@@ -1,5 +1,6 @@
 #include "uarm_common.h"
 #include "uarm_coord_convert.h"
+#include "uarm_iic.h"
 
 
 /*	end-effector driver

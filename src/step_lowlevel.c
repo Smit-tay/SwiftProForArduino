@@ -1,4 +1,5 @@
 #include "step_lowlevel.h"
+#include "nuts_bolts.h"
 
 enum step_state_e {
 	SPEED_UP 				= 0,
