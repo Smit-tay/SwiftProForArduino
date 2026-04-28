@@ -31,6 +31,7 @@ Compiling .pio/build/megaatmega2560/src/motion_control.c.o
 Compiling .pio/build/megaatmega2560/src/nuts_bolts.c.o
 Compiling .pio/build/megaatmega2560/src/planner.c.o
 Compiling .pio/build/megaatmega2560/src/print.c.o
+Compiling .pio/build/megaatmega2560/src/probe.c.o
 src/motion_control.c: In function 'mc_line':
 src/motion_control.c:47:40: warning: 'return' with no value, in function returning non-void
    if (sys.state == STATE_CHECK_MODE) { return; }
@@ -38,29 +39,14 @@ src/motion_control.c:47:40: warning: 'return' with no value, in function returni
 src/motion_control.c:38:11: note: declared here
    uint8_t mc_line(uint8_t mode, float *target, float feed_rate, uint8_t invert_feed_rate)
            ^~~~~~~
-Compiling .pio/build/megaatmega2560/src/probe.c.o
 Compiling .pio/build/megaatmega2560/src/protocol.c.o
 Compiling .pio/build/megaatmega2560/src/report.c.o
-Compiling .pio/build/megaatmega2560/src/serial.c.o
 src/print.c: In function 'uart_printf':
 src/print.c:212:2: warning: implicit declaration of function 'vsprintf' [-Wimplicit-function-declaration]
   vsprintf(buf,str,ptr);
   ^~~~~~~~
+Compiling .pio/build/megaatmega2560/src/serial.c.o
 Compiling .pio/build/megaatmega2560/src/settings.c.o
-src/protocol.c: In function 'protocol_main_loop':
-src/protocol.c:91:10: warning: unused variable 'line_execute_p' [-Wunused-variable]
-  uint8_t line_execute_p = 0;
-          ^~~~~~~~~~~~~~
-src/protocol.c:90:10: warning: unused variable 'line_num' [-Wunused-variable]
-  uint8_t line_num = 0;
-          ^~~~~~~~
-src/protocol.c:89:10: warning: unused variable 'line_remain' [-Wunused-variable]
-  uint8_t line_remain = 0;
-          ^~~~~~~~~~~
-At top level:
-src/protocol.c:36:13: warning: 'protocol_execute_line' defined but not used [-Wunused-function]
- static void protocol_execute_line(char *line)
-             ^~~~~~~~~~~~~~~~~~~~~
 Compiling .pio/build/megaatmega2560/src/spindle_control.c.o
 Compiling .pio/build/megaatmega2560/src/step_lowlevel.c.o
 Compiling .pio/build/megaatmega2560/src/stepper.c.o
@@ -84,12 +70,6 @@ src/uarm_angle.c:138:11: warning: unused variable 'head_data' [-Wunused-variable
 src/uarm_angle.c:137:6: warning: unused variable 'i' [-Wunused-variable]
   int i = 0;
       ^
-src/uarm_coord_convert.c:66:1: warning: multi-line comment [-Wcomment]
- //               /\          |          /              |            \
- ^
-src/uarm_coord_convert.c:68:1: warning: multi-line comment [-Wcomment]
- //           __/    \        |        /_____  AngleA   |   angleB ____\
- ^
 src/uarm_angle.c: In function 'check_encoder':
 src/uarm_angle.c:131:1: warning: control reaches end of non-void function [-Wreturn-type]
  }
@@ -98,19 +78,17 @@ src/uarm_angle.c: In function 'get_point_b_angle':
 src/uarm_angle.c:56:1: warning: control reaches end of non-void function [-Wreturn-type]
  }
  ^
+src/uarm_coord_convert.c:66:1: warning: multi-line comment [-Wcomment]
+ //               /\          |          /              |            \
+ ^
+src/uarm_coord_convert.c:68:1: warning: multi-line comment [-Wcomment]
+ //           __/    \        |        /_____  AngleA   |   angleB ____\
+ ^
 Compiling .pio/build/megaatmega2560/src/uarm_protocol.c.o
 Compiling .pio/build/megaatmega2560/src/uarm_swift.c.o
 Compiling .pio/build/megaatmega2560/src/uarm_timer.c.o
 Archiving .pio/build/megaatmega2560/libFrameworkArduinoVariant.a
 Indexing .pio/build/megaatmega2560/libFrameworkArduinoVariant.a
-Compiling .pio/build/megaatmega2560/FrameworkArduino/CDC.cpp.o
-src/uarm_peripheral.c: In function 'read_sys_param':
-src/uarm_peripheral.c:368:18: warning: unused variable 'r_str' [-Wunused-variable]
-  char l_str[20], r_str[20], b_str[20];
-                  ^~~~~
-src/uarm_peripheral.c:368:7: warning: unused variable 'l_str' [-Wunused-variable]
-  char l_str[20], r_str[20], b_str[20];
-       ^~~~~
 src/uarm_protocol.c: In function 'uarm_cmd_g2004':
 src/uarm_protocol.c:240:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "P%d", &delay_ms ) < 1 ){
@@ -131,6 +109,10 @@ src/uarm_protocol.c: In function 'uarm_cmd_g2205':
 src/uarm_protocol.c:345:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "S%[0-9-+.]R%[0-9-+.]H%[0-9-+.]F%[0-9-+.]", s_str, r_str, h_str, f_str) < 4 ){
       ^~~
+src/uarm_peripheral.c: In function 'setE2PROMData':
+src/uarm_peripheral.c:520:4: warning: implicit declaration of function 'eeprom_iic_writebuf' [-Wimplicit-function-declaration]
+    eeprom_iic_writebuf(FData.data, deviceAddr, addr, i);// write data
+    ^~~~~~~~~~~~~~~~~~~
 src/uarm_protocol.c: In function 'uarm_cmd_g2206':
 src/uarm_protocol.c:384:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "B%[0-9-+.]L%[0-9-+.]R%[0-9-+.]F%[0-9-+.]", angle_b_str, angle_l_str, angle_r_str, speed_str ) < 4 ){
@@ -175,10 +157,6 @@ src/uarm_protocol.c:768:35: warning: format '%d' expects argument of type 'int *
 src/uarm_protocol.c:768:5: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if(rtn = sscanf(payload,"N%dA%dT%dV%[0-9.]",&device,&addr,&type,value)<4){
      ^~~
-src/uarm_peripheral.c: In function 'setE2PROMData':
-src/uarm_peripheral.c:520:4: warning: implicit declaration of function 'eeprom_iic_writebuf' [-Wimplicit-function-declaration]
-    eeprom_iic_writebuf(FData.data, deviceAddr, addr, i);// write data
-    ^~~~~~~~~~~~~~~~~~~
 src/uarm_protocol.c: In function 'uarm_cmd_m2220':
 src/uarm_protocol.c:818:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "X%[0-9-+.]Y%[0-9-+.]Z%[0-9-+.]", x_str, y_str, z_str ) < 3 ){
@@ -187,15 +165,15 @@ src/uarm_protocol.c: In function 'uarm_cmd_m2221':
 src/uarm_protocol.c:846:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "B%[0-9-+.]L%[0-9-+.]R%[0-9-+.]", b_str, l_str, r_str ) < 3 ){
       ^~~
+src/uarm_peripheral.c: In function 'getE2PROMData':
+src/uarm_peripheral.c:577:4: warning: implicit declaration of function 'eeprom_iic_readbuf'; did you mean 'eeprom_put_char'? [-Wimplicit-function-declaration]
+    eeprom_iic_readbuf(FData.data, deviceAddr, addr, i);
+    ^~~~~~~~~~~~~~~~~~
+    eeprom_put_char
 src/uarm_protocol.c: In function 'uarm_cmd_m2222':
 src/uarm_protocol.c:875:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "X%[0-9-+.]Y%[0-9-+.]Z%[0-9-+.]P%d", x_str, y_str, z_str, &mode) < 4 ){
       ^~~
-src/uarm_swift.c: In function 'uarm_swift_init':
-src/uarm_swift.c:28:2: warning: implicit declaration of function 'end_effector_get_origin'; did you mean 'end_effector_get_angle'? [-Wimplicit-function-declaration]
-  end_effector_get_origin();
-  ^~~~~~~~~~~~~~~~~~~~~~~
-  end_effector_get_angle
 src/uarm_protocol.c: In function 'uarm_cmd_m2240':
 src/uarm_protocol.c:931:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "N%dV%d", &pin, &value) < 2 ){
@@ -204,75 +182,51 @@ src/uarm_protocol.c: In function 'uarm_cmd_m2241':
 src/uarm_protocol.c:949:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "N%dV%d", &pin, &value) < 2 ){
       ^~~
+src/uarm_peripheral.c: In function 'pump_tick':
+src/uarm_peripheral.c:728:2: warning: enumeration value 'PUMP_STATE_COUNT' not handled in switch [-Wswitch]
+  switch (pump_state)
+  ^~~~~~
 src/uarm_protocol.c: In function 'uarm_cmd_m2400':
-Compiling .pio/build/megaatmega2560/FrameworkArduino/HardwareSerial.cpp.o
-src/uarm_protocol.c:996:7: warning: implicit declaration of function 'end_effector_get_origin'; did you mean 'end_effector_get_angle'? [-Wimplicit-function-declaration]
+src/uarm_protocol.c:995:7: warning: implicit declaration of function 'end_effector_get_origin'; did you mean 'end_effector_get_angle'? [-Wimplicit-function-declaration]
        end_effector_get_origin();
        ^~~~~~~~~~~~~~~~~~~~~~~
        end_effector_get_angle
-src/uarm_protocol.c:965:17: warning: unused variable 's_str' [-Wunused-variable]
-  char h_str[20],s_str[20];
-                 ^~~~~
-src/uarm_protocol.c:965:7: warning: unused variable 'h_str' [-Wunused-variable]
-  char h_str[20],s_str[20];
-       ^~~~~
-src/uarm_protocol.c: In function 'uarm_cmd_m2410':
-src/uarm_protocol.c:1040:7: warning: unused variable 'z_str' [-Wunused-variable]
-  char z_str[20] = {0};
-       ^~~~~
 src/uarm_protocol.c: In function 'uarm_cmd_m2411':
-src/uarm_protocol.c:1063:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+src/uarm_protocol.c:1061:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "S%[0-9-+.]", offset_str) < 1 ){
       ^~~
 src/uarm_protocol.c: In function 'uarm_cmd_m2412':
-src/uarm_protocol.c:1081:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+src/uarm_protocol.c:1079:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "V%[0-9-+.]", offset_str) < 1 ){
       ^~~
 src/uarm_protocol.c: In function 'uarm_cmd_m2413':
-src/uarm_protocol.c:1098:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+src/uarm_protocol.c:1096:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
   if( rtn = sscanf(payload, "H%[0-9-+.]", offset_str) < 1 ){
       ^~~
-src/uarm_protocol.c: In function 'uarm_cmd_m2421':
-src/uarm_protocol.c:1117:1: warning: no return statement in function returning non-void [-Wreturn-type]
- }
- ^
-src/uarm_peripheral.c: In function 'getE2PROMData':
-src/uarm_peripheral.c:578:4: warning: implicit declaration of function 'eeprom_iic_readbuf'; did you mean 'eeprom_put_char'? [-Wimplicit-function-declaration]
-    eeprom_iic_readbuf(FData.data, deviceAddr, addr, i);
-    ^~~~~~~~~~~~~~~~~~
-    eeprom_put_char
-src/uarm_peripheral.c:537:10: warning: variable 'x_str' set but not used [-Wunused-but-set-variable]
-  uint8_t x_str[20];
-          ^~~~~
-src/uarm_protocol.c: In function 'uarm_cmd_p2220':
-src/uarm_protocol.c:1426:58: warning: unused variable 'e_str' [-Wunused-variable]
-  angle_l = calculate_current_angle(CHANNEL_ARML);  // <! calculate init angle
-                                                          ^~~~~
-src/uarm_protocol.c:1424:29: warning: unused variable 'angle_e' [-Wunused-variable]
-  char l_str[20] = {0}, r_str[20] = {0}, b_str[20] = {0}, e_str[20] = {0};
-                             ^~~~~~~
-src/uarm_protocol.c: In function 'uarm_cmd_p2221':
-src/uarm_protocol.c:1446:58: warning: unused variable 'e_str' [-Wunused-variable]
-  angle_l = calculate_current_angle(CHANNEL_ARML);  // <! calculate init angle
-                                                          ^~~~~
-src/uarm_protocol.c:1444:29: warning: unused variable 'angle_e' [-Wunused-variable]
-  char s_str[20] = {0}, r_str[20] = {0}, h_str[20] = {0}, e_str[20] = {0};
-                             ^~~~~~~
+src/uarm_swift.c: In function 'uarm_swift_init':
+src/uarm_swift.c:28:2: warning: implicit declaration of function 'end_effector_get_origin'; did you mean 'end_effector_get_angle'? [-Wimplicit-function-declaration]
+  end_effector_get_origin();
+  ^~~~~~~~~~~~~~~~~~~~~~~
+  end_effector_get_angle
 src/uarm_protocol.c: In function 'uarm_cmd_p2240':
-src/uarm_protocol.c:1489:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
-   return false;
+src/uarm_protocol.c:1478:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+   DB_PRINT_STR( "sscanf %d\r\n", rtn );
       ^~~
 src/uarm_protocol.c: In function 'uarm_cmd_p2241':
-src/uarm_protocol.c:1503:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
-   return false;
+src/uarm_protocol.c:1492:6: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+Compiling .pio/build/megaatmega2560/FrameworkArduino/CDC.cpp.o
+   DB_PRINT_STR( "sscanf %d\r\n", rtn );
       ^~~
-src/uarm_peripheral.c: In function 'pump_tick':
-src/uarm_peripheral.c:746:2: warning: enumeration value 'PUMP_STATE_COUNT' not handled in switch [-Wswitch]
-  switch (pump_state)
-  ^~~~~~
+At top level:
+src/uarm_peripheral.c:661:12: warning: 'adc_read_value' defined but not used [-Wunused-function]
+ static int adc_read_value(uint8_t pin){
+            ^~~~~~~~~~~~~~
+src/uarm_peripheral.c:641:13: warning: '_sort' defined but not used [-Wunused-function]
+ static void _sort(unsigned int array[], unsigned int len)
+             ^~~~~
 src/uarm_protocol.c: In function 'uarm_cmd_p2242':
-src/uarm_protocol.c:1518:18: warning: passing argument 1 of 'get_refer_value' from incompatible pointer type [-Wincompatible-pointer-types]
- }
+src/uarm_protocol.c:1507:18: warning: passing argument 1 of 'get_refer_value' from incompatible pointer type [-Wincompatible-pointer-types]
+  sprintf( tail_report_str, " B%d L%d R%d\n", refer_value[2], refer_value[0], refer_value[1] );
                   ^
 In file included from src/uarm_common.h:15:0,
                  from src/uarm_protocol.h:4,
@@ -281,8 +235,8 @@ src/uarm_angle.h:15:6: note: expected 'uint16_t * {aka unsigned int *}' but argu
  void get_refer_value(uint16_t *value);
       ^~~~~~~~~~~~~~~
 src/uarm_protocol.c: In function 'uarm_cmd_p2243':
-src/uarm_protocol.c:1524:22: warning: passing argument 1 of 'get_angle_reg_value' from incompatible pointer type [-Wincompatible-pointer-types]
- }
+src/uarm_protocol.c:1513:22: warning: passing argument 1 of 'get_angle_reg_value' from incompatible pointer type [-Wincompatible-pointer-types]
+  sprintf( tail_report_str, " B%d L%d R%d\n", angle_reg_value[2], angle_reg_value[0], angle_reg_value[1] );
                       ^
 In file included from src/uarm_common.h:15:0,
                  from src/uarm_protocol.h:4,
@@ -290,32 +244,12 @@ In file included from src/uarm_common.h:15:0,
 src/uarm_angle.h:16:6: note: expected 'uint16_t * {aka unsigned int *}' but argument is of type 'uint16_t (*)[3] {aka unsigned int (*)[3]}'
  void get_angle_reg_value(uint16_t *value);
       ^~~~~~~~~~~~~~~~~~~
-src/uarm_peripheral.c: In function 'check_motor_positon':
-src/uarm_peripheral.c:903:32: warning: unused variable 'b_str' [-Wunused-variable]
-     char l_str[20], r_str[20], b_str[20];
-                                ^~~~~
-src/uarm_peripheral.c:903:21: warning: unused variable 'r_str' [-Wunused-variable]
-     char l_str[20], r_str[20], b_str[20];
-                     ^~~~~
-src/uarm_peripheral.c:903:10: warning: unused variable 'l_str' [-Wunused-variable]
-     char l_str[20], r_str[20], b_str[20];
-          ^~~~~
-Compiling .pio/build/megaatmega2560/FrameworkArduino/HardwareSerial0.cpp.o
-At top level:
-src/uarm_peripheral.c:676:12: warning: 'getAnalogPinValue' defined but not used [-Wunused-function]
- static int getAnalogPinValue(unsigned int pin)
-            ^~~~~~~~~~~~~~~~~
 src/uarm_protocol.c: In function 'uarm_cmd_p2244':
-src/uarm_protocol.c:1567:1: warning: control reaches end of non-void function [-Wreturn-type]
- static void uarm_cmd_p2400(void){
+src/uarm_protocol.c:1556:1: warning: control reaches end of non-void function [-Wreturn-type]
+ 
  ^
-At top level:
-src/uarm_protocol.c:1115:13: warning: 'uarm_cmd_m2421' defined but not used [-Wunused-function]
- static bool uarm_cmd_m2421(void){
-             ^~~~~~~~~~~~~~
-src/uarm_protocol.c:1111:13: warning: 'uarm_cmd_m2420' defined but not used [-Wunused-function]
- static void uarm_cmd_m2420(uint8_t param){
-             ^~~~~~~~~~~~~~
+Compiling .pio/build/megaatmega2560/FrameworkArduino/HardwareSerial.cpp.o
+Compiling .pio/build/megaatmega2560/FrameworkArduino/HardwareSerial0.cpp.o
 Compiling .pio/build/megaatmega2560/FrameworkArduino/HardwareSerial1.cpp.o
 Compiling .pio/build/megaatmega2560/FrameworkArduino/HardwareSerial2.cpp.o
 Compiling .pio/build/megaatmega2560/FrameworkArduino/HardwareSerial3.cpp.o
@@ -341,7 +275,7 @@ Compiling .pio/build/megaatmega2560/FrameworkArduino/wiring_shift.c.o
 Archiving .pio/build/megaatmega2560/libFrameworkArduino.a
 Indexing .pio/build/megaatmega2560/libFrameworkArduino.a
 Linking .pio/build/megaatmega2560/firmware.elf
-src/uarm_peripheral.c:578:4: warning: type of 'eeprom_iic_readbuf' does not match original declaration [-Wlto-type-mismatch]
+src/uarm_peripheral.c:577:4: warning: type of 'eeprom_iic_readbuf' does not match original declaration [-Wlto-type-mismatch]
     eeprom_iic_readbuf(FData.data, deviceAddr, addr, i);
     ^
 src/uarm_iic.c:216:15: note: return value type mismatch
@@ -362,4 +296,4 @@ Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
 RAM:   [======    ]  62.4% (used 5112 bytes from 8192 bytes)
 Flash: [===       ]  26.4% (used 67008 bytes from 253952 bytes)
 Building .pio/build/megaatmega2560/firmware.hex
-========================= [SUCCESS] Took 1.50 seconds =========================
+========================= [SUCCESS] Took 1.49 seconds =========================

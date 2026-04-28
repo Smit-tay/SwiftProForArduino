@@ -365,7 +365,7 @@ void read_sys_param(void){
 //	
 //	DB_PRINT_STR( "mode:%s, front:%s, high:%s\r\n", l_str, r_str, b_str );
 
-	char l_str[20], r_str[20], b_str[20];
+	char b_str[20];
 	dtostrf( uarm.param.effect_angle_offset, 5, 4, b_str );
 	DB_PRINT_STR( "angle offset:%s\r\n", b_str );
 
@@ -534,7 +534,6 @@ double getE2PROMData(unsigned char device, unsigned int addr, unsigned char type
 {
 	double result = 0;
 	uint8_t deviceAddr;
-	uint8_t x_str[20];
 	union {
 		float fdata;
 		uint8_t data[4];
@@ -582,7 +581,7 @@ double getE2PROMData(unsigned char device, unsigned int addr, unsigned char type
 		else
 		{
 	
-			x_str[1]=eeprom_iic_readbuf(FData.data, deviceAddr, addr, num);
+			eeprom_iic_readbuf(FData.data, deviceAddr, addr, num);
 			
 		}      
 
@@ -672,23 +671,6 @@ static int adc_read_value(uint8_t pin){
   return (high << 8) | low;
 }
 
-
-static int getAnalogPinValue(unsigned int pin)
-{
-	unsigned int dat[8];
-
-
-	for(int i = 0; i < 8; i++)
-	{
-		dat[i] = adc_read_value(pin);
-	}
-
-	_sort(dat, 8);
-
-	unsigned int result = (dat[2]+dat[3]+dat[4]+dat[5])/4;
-
-	return result;    
-}
 
 
 
@@ -900,8 +882,6 @@ void check_motor_positon(void){
 			float reg_angle_b = calculate_current_angle(CHANNEL_BASE) ;
 
 			if( fabs(current_angle_l-reg_angle_l)>0.5 || fabs(current_angle_r-reg_angle_r)>0.5 || fabs(current_angle_b-reg_angle_b+90)>0.5 ){
-				char l_str[20], r_str[20], b_str[20];
-
 				memset(&sys, 0, sizeof(system_t));  // Clear all system variables
 				plan_sync_position();
 	    	gc_sync_position();

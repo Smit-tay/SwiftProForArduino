@@ -30,30 +30,7 @@
 
 static char line[LINE_BUFFER_SIZE];
 
-// Directs and executes one line of formatted input from protocol_process. While mostly
-// incoming streaming g-code blocks, this also directs and executes Grbl internal commands,
-// such as settings, initiating the homing cycle, and toggling switch states.
-static void protocol_execute_line(char *line) 
-{ 
-  protocol_execute_realtime(); // Runtime command check point.
-  if (sys.abort) { return; } // Bail to calling function upon system abort  
-
-  #ifdef REPORT_ECHO_LINE_RECEIVED
-    report_echo_line_received(line);
-  #endif
-	if (line[0] == '$') {
-    // Grbl '$' system command
-    report_status_message(system_execute_line(line)); 
-  } else if (sys.state == STATE_ALARM) {
-    // Everything else is gcode. Block if in alarm mode.
-    report_status_message(STATUS_ALARM_LOCK);
-  } else {
-    // Parse and execute g-code block!
-    report_status_message(gc_execute_line(line));
-  }
-}
-
-/* 
+/*
   GRBL PRIMARY LOOP:
 */
 void protocol_main_loop()
@@ -86,10 +63,6 @@ void protocol_main_loop()
   uint8_t comment = COMMENT_NONE;
   uint8_t char_counter = 0;
   uint8_t c;
-	uint8_t line_remain = 0;
-	uint8_t line_num = 0;
-	uint8_t line_execute_p = 0;
-	
   for (;;) {
 
     // Process one line of incoming serial data, as the data becomes available. Performs an

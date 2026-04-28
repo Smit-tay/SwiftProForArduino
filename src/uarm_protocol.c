@@ -962,7 +962,6 @@ static bool uarm_cmd_m2241(char *payload){
 }
 
 static void uarm_cmd_m2400(uint8_t param){	// <! set work mode
-	char h_str[20],s_str[20];
 	switch(param){
 		case WORK_MODE_NORMAL:				// <! nomal mode
 						end_effector_deinit();
@@ -1037,7 +1036,6 @@ static void uarm_cmd_m2410(void){
 	float x, y, z;
 //	step_to_coord( sys.position[X_AXIS], sys.position[Y_AXIS], sys.position[Z_AXIS], &x, &y, &z); // calculate the current coord  
 	float angle_l = 0, angle_r = 0, angle_b =0;
-	char z_str[20] = {0};
 
 	angle_l = calculate_current_angle(CHANNEL_ARML);		// <! calculate init angle
 	angle_r = calculate_current_angle(CHANNEL_ARMR);
@@ -1106,14 +1104,6 @@ static bool uarm_cmd_m2413(char *payload){
 		save_user_endoffest();
 		return true;
 	}	
-}
-
-static void uarm_cmd_m2420(uint8_t param){
-//	multi_point_reference(param);
-}
-
-static bool uarm_cmd_m2421(void){
-//	return calculate_refer_write_eeprom();
 }
 
 static bool uarm_cmd_m2500(void){
@@ -1319,7 +1309,7 @@ enum uarm_protocol_e uarm_execute_m_cmd(uint16_t cmd, char *line, uint8_t *char_
 								}else{
 									return UARM_CMD_ERROR;
 								} 
-			break;
+			break;
 		case 2412:
 								if( uarm_cmd_m2412(line) == true ){
 									return UARM_CMD_OK;
@@ -1418,10 +1408,10 @@ void uarm_cmd_p2206(uint8_t param){
 	}
 }
 
-static void uarm_cmd_p2220(void){					// <! get curren coord 
-	float x = 0, y = 0, z = 0, angle_e;
+static void uarm_cmd_p2220(void){					// <! get curren coord
+	float x = 0, y = 0, z = 0;
 	float angle_l = 0, angle_r = 0, angle_b =0;
-	char l_str[20] = {0}, r_str[20] = {0}, b_str[20] = {0}, e_str[20] = {0};
+	char l_str[20] = {0}, r_str[20] = {0}, b_str[20] = {0};
 
 	angle_l = calculate_current_angle(CHANNEL_ARML);		// <! calculate init angle
 	angle_r = calculate_current_angle(CHANNEL_ARMR);
@@ -1438,10 +1428,10 @@ static void uarm_cmd_p2220(void){					// <! get curren coord
 	sprintf( tail_report_str, " X%s Y%s Z%s\n", l_str, r_str, b_str );	
 }
 
-static void uarm_cmd_p2221(void){					// <! get curren polar coord 
-	float x = 0, y = 0, z = 0, angle_e;
+static void uarm_cmd_p2221(void){					// <! get curren polar coord
+	float x = 0, y = 0, z = 0;
 	float angle_l = 0, angle_r = 0, angle_b =0;
-	char s_str[20] = {0}, r_str[20] = {0}, h_str[20] = {0}, e_str[20] = {0};
+	char s_str[20] = {0}, r_str[20] = {0}, h_str[20] = {0};
 
 	angle_l = calculate_current_angle(CHANNEL_ARML);		// <! calculate init angle
 	angle_r = calculate_current_angle(CHANNEL_ARMR);
