@@ -116,3 +116,4 @@ applet/
 *.su
 .pioenvs
 .piolibdeps
+.pio/
