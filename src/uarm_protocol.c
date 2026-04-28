@@ -237,7 +237,7 @@ static bool uarm_cmd_g2004(char *payload){					// <! g cmd delay ms
 	int delay_ms = 0;
 	uint8_t rtn = 0;
 	
-	if( rtn = sscanf(payload, "P%d", &delay_ms ) < 1 ){
+	if( (rtn = sscanf(payload, "P%d", &delay_ms )) < 1 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return false;
 	}else{
@@ -249,7 +249,7 @@ static bool uarm_cmd_g2004(char *payload){					// <! g cmd delay ms
 static enum uarm_protocol_e uarm_cmd_g2201(char *payload){						// <! polar coord
 	uint8_t rtn = 0;
 	char s_str[10], r_str[10], h_str[10], f_str[10];
-	if( rtn = sscanf(payload, "S%[0-9-+.]R%[0-9-+.]H%[0-9-+.]F%[0-9-+.]", s_str, r_str, h_str, f_str) < 4 ){
+	if( (rtn = sscanf(payload, "S%[0-9-+.]R%[0-9-+.]H%[0-9-+.]F%[0-9-+.]", s_str, r_str, h_str, f_str)) < 4 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return UARM_CMD_ERROR;		
 	}else{
@@ -275,7 +275,7 @@ static enum uarm_protocol_e uarm_cmd_g2202(char *payload){						// <! move motor
 	char angle_str[20], f_str[20];
 	float angle = 0, speed = 0;
 	uint8_t rtn = 0;
-	if( rtn = sscanf(payload, "N%dV%[0-9-+.]F%[0-9-+.]", &num, angle_str, f_str ) < 3 ){
+	if( (rtn = sscanf(payload, "N%dV%[0-9-+.]F%[0-9-+.]", &num, angle_str, f_str )) < 3 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return UARM_CMD_ERROR;
 	}else{
@@ -317,7 +317,7 @@ static enum uarm_protocol_e uarm_cmd_g2202(char *payload){						// <! move motor
 static enum uarm_protocol_e uarm_cmd_g2204(char *payload){					// <! coord offset 
 	uint8_t rtn = 0;
 	char x_str[10], y_str[10], z_str[10], f_str[10];
-	if( rtn = sscanf(payload, "X%[0-9-+.]Y%[0-9-+.]Z%[0-9-+.]F%[0-9-+.]", x_str, y_str, z_str, f_str ) < 4 ){
+	if( (rtn = sscanf(payload, "X%[0-9-+.]Y%[0-9-+.]Z%[0-9-+.]F%[0-9-+.]", x_str, y_str, z_str, f_str )) < 4 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return UARM_CMD_ERROR;
 	}else{
@@ -342,7 +342,7 @@ static enum uarm_protocol_e uarm_cmd_g2204(char *payload){					// <! coord offse
 static  enum uarm_protocol_e uarm_cmd_g2205(char *payload){		// <! polar coord offset
 	uint8_t rtn = 0;
 	char s_str[10], r_str[10], h_str[10], f_str[10];
-	if( rtn = sscanf(payload, "S%[0-9-+.]R%[0-9-+.]H%[0-9-+.]F%[0-9-+.]", s_str, r_str, h_str, f_str) < 4 ){
+	if( (rtn = sscanf(payload, "S%[0-9-+.]R%[0-9-+.]H%[0-9-+.]F%[0-9-+.]", s_str, r_str, h_str, f_str)) < 4 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return UARM_CMD_ERROR;		
 	}else{
@@ -381,7 +381,7 @@ static enum uarm_protocol_e uarm_cmd_g2206(char *payload){
 	char angle_b_str[20], angle_l_str[20], angle_r_str[20] ,speed_str[20];
 	float angle_b, angle_l, angle_r, speed;
 	uint8_t rtn = 0;
-	if( rtn = sscanf(payload, "B%[0-9-+.]L%[0-9-+.]R%[0-9-+.]F%[0-9-+.]", angle_b_str, angle_l_str, angle_r_str, speed_str ) < 4 ){
+	if( (rtn = sscanf(payload, "B%[0-9-+.]L%[0-9-+.]R%[0-9-+.]F%[0-9-+.]", angle_b_str, angle_l_str, angle_r_str, speed_str )) < 4 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return UARM_CMD_ERROR;
 	}else{
@@ -502,7 +502,7 @@ static void uarm_cmd_m17(void){				// <! lock all motor
 static bool uarm_cmd_m204(char *payload){
 	char accele_str[20];
 	uint8_t rtn;
-	if( rtn = sscanf(payload, "A%[0-9-+.]", accele_str) < 1 ){
+	if( (rtn = sscanf(payload, "A%[0-9-+.]", accele_str)) < 1 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return false;		
 	}else{
@@ -536,7 +536,7 @@ static bool uarm_cmd_m2120(char *payload){
 	char time_str[20];
 	float cycle_time;
 	uint8_t rtn = 0;
-	if( rtn = sscanf(payload, "V%s", time_str ) < 1 ){
+	if( (rtn = sscanf(payload, "V%s", time_str )) < 1 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return false;
 	}else{
@@ -685,7 +685,7 @@ static void uarm_cmd_m2203(uint8_t param){	// <! get motor status
 static bool uarm_cmd_m2205(char *payload){
 	int rtn;
 	char sn_num[13];
-	if( rtn = sscanf(payload, "VUB%[0-9.]", sn_num ) < 1 ){
+	if( (rtn = sscanf(payload, "VUB%[0-9.]", sn_num )) < 1 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return false;
 	}else{
@@ -700,7 +700,7 @@ static bool uarm_cmd_m2210(char *payload){
 	float	frequency = 0;
 	char fre_str[10] = {0};
 	int rtn;
-	if( rtn = sscanf(payload, "F%[0-9.]T%d", fre_str, &duration) < 2 ){
+	if( (rtn = sscanf(payload, "F%[0-9.]T%d", fre_str, &duration)) < 2 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return false;
 	}else{
@@ -716,7 +716,7 @@ static bool uarm_cmd_m2211(char *payload){
 	int rtn;
 	char x_str[20] = {0};
 	float data=0;
-	if(rtn = sscanf(payload,"N%dA%dT%d",&device,&addr,&type)<3){
+	if((rtn = sscanf(payload,"N%dA%dT%d",&device,&addr,&type))<3){
 		DB_PRINT_STR("sscanf %d\r\n",rtn);
 		return false;
 	}else{
@@ -765,7 +765,7 @@ static bool uarm_cmd_m2212(char *payload){
 	char value[20];
 	float eeprom_value;
 	int rtn;
-	if(rtn = sscanf(payload,"N%dA%dT%dV%[0-9.]",&device,&addr,&type,value)<4){
+	if((rtn = sscanf(payload,"N%dA%dT%dV%[0-9.]",&device,&addr,&type,value))<4){
 		DB_PRINT_STR("sscanf %d\r\n",rtn);
 		return false;
 	}else{
@@ -815,7 +815,7 @@ static bool uarm_cmd_m2220(char *payload){     // <! coord to angle
 	float x = 0, y = 0, z = 0;
 	int rtn = 0;
 	
-	if( rtn = sscanf(payload, "X%[0-9-+.]Y%[0-9-+.]Z%[0-9-+.]", x_str, y_str, z_str ) < 3 ){
+	if( (rtn = sscanf(payload, "X%[0-9-+.]Y%[0-9-+.]Z%[0-9-+.]", x_str, y_str, z_str )) < 3 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return false;
 	}else{
@@ -843,7 +843,7 @@ static bool uarm_cmd_m2221(char *payload){    // <! angle to coord
 	float angle_b = 0, angle_l = 0, angle_r = 0;
 	int rtn = 0;
 	
-	if( rtn = sscanf(payload, "B%[0-9-+.]L%[0-9-+.]R%[0-9-+.]", b_str, l_str, r_str ) < 3 ){
+	if( (rtn = sscanf(payload, "B%[0-9-+.]L%[0-9-+.]R%[0-9-+.]", b_str, l_str, r_str )) < 3 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return false;
 	}else{
@@ -872,7 +872,7 @@ static bool uarm_cmd_m2222(char *payload){	// <! check coord if legal
 	char x_str[20] = {0}, y_str[20] = {0}, z_str[20] = {0};
 	int mode = 0xFF;
 	uint8_t rtn = 0;
-	if( rtn = sscanf(payload, "X%[0-9-+.]Y%[0-9-+.]Z%[0-9-+.]P%d", x_str, y_str, z_str, &mode) < 4 ){
+	if( (rtn = sscanf(payload, "X%[0-9-+.]Y%[0-9-+.]Z%[0-9-+.]P%d", x_str, y_str, z_str, &mode)) < 4 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return false;
 	}else{
@@ -928,7 +928,7 @@ static void uarm_cmd_m2233(uint8_t param){
 static bool uarm_cmd_m2240(char *payload){
 	uint8_t rtn = 0;
 	int pin, value;
-	if( rtn = sscanf(payload, "N%dV%d", &pin, &value) < 2 ){
+	if( (rtn = sscanf(payload, "N%dV%d", &pin, &value)) < 2 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return false;
 	}else{
@@ -946,7 +946,7 @@ static bool uarm_cmd_m2240(char *payload){
 static bool uarm_cmd_m2241(char *payload){
 	uint8_t rtn = 0;
 	int pin, value;
-	if( rtn = sscanf(payload, "N%dV%d", &pin, &value) < 2 ){
+	if( (rtn = sscanf(payload, "N%dV%d", &pin, &value)) < 2 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return false;
 	}else{
@@ -1058,7 +1058,7 @@ static bool uarm_cmd_m2411(char *payload){
 	char offset_str[20] = {0};
 	
 	uint8_t rtn = 0;
-	if( rtn = sscanf(payload, "S%[0-9-+.]", offset_str) < 1 ){
+	if( (rtn = sscanf(payload, "S%[0-9-+.]", offset_str)) < 1 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return false;
 	}else{
@@ -1076,7 +1076,7 @@ static bool uarm_cmd_m2412(char *payload){
 	char offset_str[20] = {0};
 	
 	uint8_t rtn = 0;
-	if( rtn = sscanf(payload, "V%[0-9-+.]", offset_str) < 1 ){
+	if( (rtn = sscanf(payload, "V%[0-9-+.]", offset_str)) < 1 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return false;
 	}else{
@@ -1093,7 +1093,7 @@ static bool uarm_cmd_m2413(char *payload){
 	char offset_str[20] = {0};
 	
 	uint8_t rtn = 0;
-	if( rtn = sscanf(payload, "H%[0-9-+.]", offset_str) < 1 ){
+	if( (rtn = sscanf(payload, "H%[0-9-+.]", offset_str)) < 1 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return false;
 	}else{
@@ -1474,7 +1474,7 @@ static void uarm_cmd_p2235(void){
 static bool uarm_cmd_p2240(char *payload){
 	uint8_t rtn = 0;
 	int pin;
-	if( rtn = sscanf(payload, "N%d", &pin) < 1 ){
+	if( (rtn = sscanf(payload, "N%d", &pin)) < 1 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return false;
 	}else{
@@ -1488,7 +1488,7 @@ static bool uarm_cmd_p2240(char *payload){
 static bool uarm_cmd_p2241(char *payload){
 	uint8_t rtn = 0;
 	int pin;
-	if( rtn = sscanf(payload, "N%d", &pin) < 1 ){
+	if( (rtn = sscanf(payload, "N%d", &pin)) < 1 ){
 		DB_PRINT_STR( "sscanf %d\r\n", rtn );
 		return false;
 	}else{
