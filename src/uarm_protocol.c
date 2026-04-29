@@ -570,6 +570,10 @@ static void uarm_cmd_m2123(uint8_t param){
 	}
 }
 
+static void uarm_cmd_m2200(void){				// get motion state: 0=idle, 1=moving
+	sprintf(tail_report_str, " V%d\n", (sys.state == STATE_IDLE) ? 0 : 1);
+}
+
 static void uarm_cmd_m2201(uint8_t param){		// <! lock n motor
 	switch(param){
 		case 0:
@@ -1113,6 +1117,10 @@ static bool uarm_cmd_m2500(void){
 enum uarm_protocol_e uarm_execute_m_cmd(uint16_t cmd, char *line, uint8_t *char_counter){
 
 	switch(cmd){
+		case 2200:
+								uarm_cmd_m2200();
+								return UARM_CMD_OK;
+			break;
 		case 17:
 								uarm_cmd_m17();				// <! lock all motor
 								return UARM_CMD_OK;
@@ -1360,7 +1368,7 @@ static void uarm_cmd_p2200(void){				// <! get current angle
 }
 
 static void uarm_cmd_p2201(void){
-	sprintf( tail_report_str, " %s\n", DEVICE_NAME );
+	sprintf( tail_report_str, " V%s\n", DEVICE_NAME );
 }
 
 static void uarm_cmd_p2202(void){
