@@ -14,7 +14,7 @@
 #endif
 
 #define HARDWARE_VERSION			hardware_version
-#define SOFTWARE_VERSION			"V4.9.1-jss.1"
+#define SOFTWARE_VERSION			"V4.9.1-jss.2"
 #define API_VERSION						"V4.0.5"
 #define BLE_UUID							bt_mac_addr
 
