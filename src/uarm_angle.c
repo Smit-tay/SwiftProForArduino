@@ -62,14 +62,14 @@ static uint16_t read_angle_reg_value(enum angle_channel_e channel){
 	min = temp_value;
 	sum_value = temp_value;
 	
-	for( int i=1; i < 5; i++ ){
+	for( int i=1; i < 3; i++ ){
 		temp_value = ((uint16_t)iic_read_byte(channel, (0x36<<1), 0x0e))<<8 | iic_read_byte(channel, (0x36<<1), 0x0f);
 		if( temp_value > max ){ max = temp_value; }
 		if( temp_value < min ){ min = temp_value; }
 		sum_value += temp_value;
 	}
-	
-	aver_value = ((sum_value - max - min)/3);
+
+	aver_value = (sum_value - max - min);
 	if( aver_value > 4096 ){
 		return 0;
 	}

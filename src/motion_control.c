@@ -94,8 +94,7 @@
 	
 	step_to_coord( uarm.target_step[X_AXIS], uarm.target_step[Y_AXIS], uarm.target_step[Z_AXIS], 
 								 &current_coord[X_AXIS], &current_coord[Y_AXIS], &current_coord[Z_AXIS]);				// calculate the arm current coord  
-	coord_arm2effect( &current_coord[X_AXIS], &current_coord[Y_AXIS], &current_coord[Z_AXIS] );		// calculate the effect current coord  
-	settings_init();
+	coord_arm2effect( &current_coord[X_AXIS], &current_coord[Y_AXIS], &current_coord[Z_AXIS] );		// calculate the effect current coord
 	switch( mode ){
 		case MOTION_MODE_SEEK:				// <!  G0
 															divide_numbers=1;												
