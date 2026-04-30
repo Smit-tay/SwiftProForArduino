@@ -140,7 +140,7 @@
 											&angle_x, &angle_y, &angle_z ); 																			// <! calculate final angle
 											
 		if( is_angle_legal( angle_x, angle_y, angle_z ) == false ){ 														// check the angle
-			continue;
+			return UARM_COORD_ERROR;
 		}
 
 		
