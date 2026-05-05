@@ -54,27 +54,65 @@ First, connect to uArm using the serial terminal of your choice.Set the baud rat
 not support currently **M2211,M2212,M2213,M2234,M2245**.
 * query cmd support 
 **P2200,P2201,P2202,P2203,P2204,P2205,P2206,P2220,P2221,P2231,P2231,P2232,P2233,P2234,P2240,P2241,P2242,P2400**.                                                                  
-----------
 ## How to upgrade uArm
 
 ### 1、Flashing Firmware to uArm
+
 #### To Determine your uArm's COM port:
 
+**Windows:**
 * Windows XP: Right click on "My Computer", select "Properties", select "Device Manager".
 * Windows 7: Click "Start" -> Right click "Computer" -> Select "Manage" -> Select "Device Manager" from left pane.
 * In the tree, expand "Ports (COM & LPT)".
-* Your uArm will be the **Arduino Mega 2560 (COMX)**, the “X” represents the COM number, for example COM6.
+* Your uArm will be the **Arduino Mega 2560 (COMX)**, the "X" represents the COM number, for example COM6.
 * If there are multiple USB serial ports, right click each one and check the manufacturer, the Arduino will be "FTDI".
-#### To flash  hex to Swift Pro:
 
+**Linux:**
+* Plug the uArm in via USB.
+* Open a terminal and run `ls /dev/ttyACM*` (or `ls /dev/ttyUSB*` on older boards). The uArm will typically appear as `/dev/ttyACM0`.
+* To confirm, run `dmesg | tail` immediately after plugging in — you should see a line identifying the device, e.g. `cdc_acm 1-1:1.0: ttyACM0: USB ACM device`.
+* If your user account doesn't have permission to access the port, add yourself to the `dialout` group (`sudo usermod -aG dialout $USER`) and log out/in.
+
+#### To flash hex to Swift Pro:
+
+**Windows (XLoader):**
 * Download the [hex](hex/)
 * Download and extract [XLoader](https://raw.githubusercontent.com/uArm-Developer/SwiftProForArduino/Version_V4.0/imagaes/XLoader.zip).
 * Open XLoader and select your uArm's COM port from the drop down menu on the lower left.
 * Select the appropriate device from the dropdown list titled "Device".
 * Check that Xloader set the correct baud rate for the device: 115200 for Mega (ATMEGA2560).
 * Now use the browse button on the top right of the form to browse to your hex file.
-* Once your hex file is selected, click "Upload"
-The upload process generally takes about 10 seconds to finish. Once completed, a message will appear in the bottom left corner of XLoader telling you how many bytes were uploaded. If there was an error, it would show instead of the total bytes uploaded. Steps should be similar and may be done through the command prompt.
+* Once your hex file is selected, click "Upload".
+
+The upload process generally takes about 10 seconds to finish. Once completed, a message will appear in the bottom left corner of XLoader telling you how many bytes were uploaded. If there was an error, it would show instead of the total bytes uploaded.
+
+**Linux (avrdude):**
+
+Most distributions ship `avrdude` in their package manager (`sudo dnf install avrdude` on Fedora, `sudo apt install avrdude` on Debian/Ubuntu). To flash a hex file:
+
+```bash
+avrdude -c wiring -p atmega2560 -P /dev/ttyACM0 -b 115200 -D -U flash:w:firmware.hex:i
+```
+
+Replace `firmware.hex` with the path to the hex you want to flash, and `/dev/ttyACM0` with the port identified above. Flags explained:
+
+* `-c wiring` — programmer protocol used by the Mega 2560 bootloader.
+* `-p atmega2560` — target MCU.
+* `-P /dev/ttyACM0` — serial port.
+* `-b 115200` — baud rate.
+* `-D` — disable auto-erase (the bootloader handles erase).
+* `-U flash:w:firmware.hex:i` — write the hex file to flash memory.
+
+The upload takes ~10 seconds and ends with `avrdude done. Thank you.` on success.
+
+**Linux (PlatformIO, if building from source):**
+
+If you're building this firmware from source rather than flashing a prebuilt hex, PlatformIO handles flashing directly:
+
+```bash
+pio run --target upload --upload-port /dev/ttyACM0
+```
+Run from the repository root. PlatformIO invokes `avrdude` under the hood with the correct flags.
 
 ### 2、Control your uArm
 you have three ways to control your uArm:
