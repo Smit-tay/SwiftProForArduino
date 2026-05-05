@@ -1,4 +1,7 @@
-# Swift Pro Firmware V4.9.1-jss.5 — fork of [uArm-Developer/SwiftProForArduino V4.9.0](https://github.com/uArm-Developer/SwiftProForArduino), based on [Grbl v0.9j](https://github.com/grbl/grbl)
+# Swift Pro Firmware V4.9.1-jss.5 
+  — fork of [uArm-Developer/SwiftProForArduino V4.9.0](https://github.com/uArm-Developer/SwiftProForArduino)
+     
+  —— based on [Grbl v0.9j](https://github.com/grbl/grbl)
 
 ----------
 ## Update Summary
