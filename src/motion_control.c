@@ -41,10 +41,10 @@
 
   // If enabled, check for soft limit violations. Placed here all line motions are picked up
   // from everywhere in Grbl.
-  if (bit_istrue(settings.flags,BITFLAG_SOFT_LIMIT_ENABLE)) { limits_soft_check(target); }    
-      
+  if (bit_istrue(settings.flags,BITFLAG_SOFT_LIMIT_ENABLE)) { limits_soft_check(target); }
+
   // If in check gcode mode, prevent motion by blocking planner. Soft limits still work.
-  if (sys.state == STATE_CHECK_MODE) { return; }
+  if (sys.state == STATE_CHECK_MODE) { return STATUS_OK; }
     
   // NOTE: Backlash compensation may be installed here. It will need direction info to track when
   // to insert a backlash line motion(s) before the intended line motion and will require its own

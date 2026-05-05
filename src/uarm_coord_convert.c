@@ -63,9 +63,9 @@
 	#define ARMA_ARMB_MIN_ANGLE    	(10)
 #endif
 
-//               /\          |          /              |            \
+//               /\          |          /              |
 //       ARM_A  /  \  ARM_B  |    ARM_A/               |             \ ARM_B
-//           __/    \        |        /_____  AngleA   |   angleB ____\
+//           __/    \        |        /_____  AngleA   |   angleB ____
 //          | center         |                         |
 //     origin
 

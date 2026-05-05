@@ -720,7 +720,7 @@ static bool uarm_cmd_m2211(char *payload){
 	int rtn;
 	char x_str[20] = {0};
 	float data=0;
-	if((rtn = sscanf(payload,"N%dA%dT%d",&device,&addr,&type))<3){
+	if((rtn = sscanf(payload,"N%hhdA%dT%hhd",&device,&addr,&type))<3){
 		DB_PRINT_STR("sscanf %d\r\n",rtn);
 		return false;
 	}else{
@@ -769,7 +769,7 @@ static bool uarm_cmd_m2212(char *payload){
 	char value[20];
 	float eeprom_value;
 	int rtn;
-	if((rtn = sscanf(payload,"N%dA%dT%dV%[0-9.]",&device,&addr,&type,value))<4){
+	if((rtn = sscanf(payload,"N%hhdA%dT%hhdV%[0-9.]",&device,&addr,&type,value))<4){
 		DB_PRINT_STR("sscanf %d\r\n",rtn);
 		return false;
 	}else{
@@ -1511,13 +1511,13 @@ static bool uarm_cmd_p2241(char *payload){
 
 static void uarm_cmd_p2242(void){
 	uint16_t refer_value[3] = {0};
-	get_refer_value(&refer_value);
+	get_refer_value(refer_value);
 	sprintf( tail_report_str, " B%d L%d R%d\n", refer_value[2], refer_value[0], refer_value[1] );
 }
 
 static void uarm_cmd_p2243(void){
 	uint16_t angle_reg_value[3] = {0};
-	get_angle_reg_value(&angle_reg_value);
+	get_angle_reg_value(angle_reg_value);
 	sprintf( tail_report_str, " B%d L%d R%d\n", angle_reg_value[2], angle_reg_value[0], angle_reg_value[1] );
 }
 bool uarm_cmd_p2244(void)
@@ -1560,6 +1560,7 @@ bool uarm_cmd_p2244(void)
 	break;
 
 	}
+	return false;
 }
 
 static void uarm_cmd_p2400(void){

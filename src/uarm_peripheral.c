@@ -639,38 +639,6 @@ void read_hardware_version(void){
 	
 }
 
-static void _sort(unsigned int array[], unsigned int len)
-{
-	unsigned char i=0,j=0;
-	unsigned int temp = 0;
-
-	for(i = 0; i < len; i++) 
-	{
-		for(j = 0; i+j < (len-1); j++) 
-		{
-			if(array[j] > array[j+1]) 
-			{
-				temp = array[j];
-				array[j] = array[j+1];
-				array[j+1] = temp;
-			}
-		}
-	}	
-}
-
-
-static int adc_read_value(uint8_t pin){
-  uint8_t low, high;
-  if (pin >= 54) pin -= 54; // allow for channel or pin numbers
-
-  ADCSRB = (ADCSRB & ~(1 << MUX5)) | (((pin >> 3) & 0x01) << MUX5);
-  ADMUX = (1 << 6) | (pin & 0x07);
-  ADCSRA |= (1<<ADSC);
-  while( !(ADCSRA&(1<<ADSC)) );
-  low  = ADCL;
-  high = ADCH;
-  return (high << 8) | low;
-}
 
 
 
@@ -771,12 +739,14 @@ void pump_tick(void)
 		break;		
 		
 	case PUMP_STATE_VALVE_OFF:
-		PORTG &= (~0x20); 
+		PORTG &= (~0x20);
 		delay_ms(50);
 		pump_state = PUMP_STATE_VALVE_ON;
-		
+
 		break;
-		
+
+	case PUMP_STATE_COUNT:
+		break;
 
 	}
 }

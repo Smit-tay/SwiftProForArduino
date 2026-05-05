@@ -1,3 +1,4 @@
+#include <math.h>
 #include "uarm_angle.h"
 #include "uarm_iic.h"
 
@@ -51,8 +52,9 @@ static float get_point_b_angle(enum angle_channel_e channel){
 	switch(channel){
 		case CHANNEL_ARML:	return POINT_B_ARML_ANGLE;
 		case CHANNEL_ARMR:	return POINT_B_ARMR_ANGLE;
-		case CHANNEL_BASE:	return POINT_B_BASE_ANGLE;	
+		case CHANNEL_BASE:	return POINT_B_BASE_ANGLE;
 	}
+	return NAN;
 }
 
 static uint16_t read_angle_reg_value(enum angle_channel_e channel){
@@ -125,17 +127,20 @@ bool check_encoder(enum angle_channel_e channel)
 			{
 				return false;
 			}
-			break;	
+			break;
 
 	}
+	return false;
 }
 
 float calculate_current_angle(enum angle_channel_e channel){
 	uint16_t angle_reg_value = read_angle_reg_value(channel);
 	int long offset = 0;
 	float angle = 0.0;
+#if defined(UARM_2500)
 	int i = 0;
 	uint16_t head_data = 0, tail_data = 0;
+#endif
 	int long refer_value = 0;  
 	
 	switch( channel ){
