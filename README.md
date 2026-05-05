@@ -1,11 +1,40 @@
 # Swift Pro Firmware V4.9.0 (Base on [Grbl v0.9j](https://github.com/grbl/grbl) )
 
 ----------
-## Update Summary for v4.9.0
+## Update Summary
 
-* Fix M2410 bug
-* Add M2413 interface
-* Add M2400 S7 work mode
+**V4.9.1-jss.5 — zero warnings, hardware-verified, smoother motion.**
+
+This fork started life inheriting 112 compiler warnings from upstream. As of jss.5, that count is zero, and the cleanup turned up real bugs along the way — not just cosmetic noise.
+
+### Real bugs found and fixed
+
+- **Silent-skip in `mc_line`.** Illegal segments mid-trajectory were silently skipped, letting the planner stitch legal segments together via step-space interpolation through the forbidden joint region — and report success. Now returns `UARM_COORD_ERROR` honestly.
+- **Memory corruption in M2211/M2212.** `sscanf` with `%d` was writing int-sized values into `unsigned char` destinations, clobbering adjacent stack bytes on every invocation. Fixed by switching to `%hhd` (avr-libc support hardware-verified on this toolchain).
+- **EEPROM checksum rotate.** `||` (logical OR) where `|` (bitwise OR) was intended. Beautifully self-concealing — identically broken on read and write paths, so every EEPROM ever written validated against its own broken algorithm and passed.
+- **Undefined behaviour in `mc_line` check-mode.** Bare `return;` in a non-void function propagated whatever was in the return register as G-code execution status. Usually benign on AVR, formally UB.
+
+### Performance and behavioural improvements
+
+- **Junction deviation** raised from 0.01mm to 0.05mm. The original value was a CNC-router inheritance forcing near-stops at every direction change — audibly jerky motion and peak-torque events on plastic gears at every junction. New value allows continuous motion through corners while remaining well below the parallel linkage's dynamics envelope. Verified smooth at F3000 zigzags with no oscillation.
+- **Acceleration ramp resolution** doubled (`ACCELERATION_TICKS_PER_SECOND` 100 → 200). Finer velocity control during ramps, smoother low-feedrate motion.
+- **Look-ahead depth** increased (`BLOCK_BUFFER_SIZE` 18 → 24). Better planner decisions on short-segment sequences.
+- **Encoder averaging** reduced from 5 to 3 samples. Cuts I²C read time per cycle from ~21ms to ~12.6ms, enabling clean 25-30Hz position reporting.
+- **Defensive returns** added against future enum extensions in `check_encoder`, `get_point_b_angle`, and `uarm_cmd_p2244`. `NaN` return from `get_point_b_angle` integrates with existing `is_angle_legal()` checks for fail-safe behaviour.
+- **Dead code excluded** from the build (`step_lowlevel.c` — never called, latent Timer4 conflict).
+- **Redundant work eliminated** (`mc_line` was re-reading full EEPROM settings on every move command).
+
+### Build
+
+| Metric   | Phase 4 baseline | jss.5        | Delta            |
+|----------|------------------|--------------|------------------|
+| Flash    | 66,966 bytes     | 65,480 bytes | −1,486 bytes     |
+| RAM      | 5,112 bytes      | 5,351 bytes  | +239 bytes       |
+| Warnings | 19               | 0            | −19 (−112 from upstream) |
+
+Hardware verified post-flash on uArm Swift Pro: settings restore correctly, all known-good moves succeed, deliberately-illegal moves return E22 cleanly, check-mode regression clean, junction smoothness retained.
+
+Tagged `V4.9.1-jss.5`.
 
 ## Caution
 #### The current firmware is not perfect and will be updated periodically
