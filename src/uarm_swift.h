@@ -6,17 +6,17 @@
 
 
 #if defined(UARM_MINI)
-	#define DEVICE_NAME						"uArmMini"
-#elif	defined(UARM_2500)
-	#define DEVICE_NAME						"uArm3Plus"
+    #define DEVICE_NAME                     "uArmMini"
+#elif   defined(UARM_2500)
+    #define DEVICE_NAME                     "uArm3Plus"
 #else
-	#define DEVICE_NAME						"SwiftPro"
+    #define DEVICE_NAME                     "SwiftPro"
 #endif
 
-#define HARDWARE_VERSION			hardware_version
-#define SOFTWARE_VERSION			"V4.9.1-jss.5"
-#define API_VERSION						"V4.0.5"
-#define BLE_UUID							bt_mac_addr
+#define HARDWARE_VERSION            hardware_version
+#define SOFTWARE_VERSION            "V4.9.1-jss.7"
+#define API_VERSION                     "V4.0.5"
+#define BLE_UUID                            bt_mac_addr
 
 
 void uarm_swift_init(void);
